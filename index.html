@@ -46,7 +46,9 @@
   // L'app vera vive su Google: questa pagina serve solo a dare l'icona alla schermata Home.
   var APP = 'https://script.google.com/macros/s/AKfycbxjHCDsWl3TuLKMZPszLxW1Nfg9L1_nefJ7_N3T4-jBw4zoOK58G4uJTVOEEyfoyd8/exec';
   document.getElementById('apri').href = APP;
-  var daHome = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+  // Salta all'app solo quando la pagina è aperta dall'icona sulla Home dell'iPhone.
+  // In Safari, Chrome o da un link resta qui, così si può aggiungere l'icona.
+  var daHome = window.navigator.standalone === true;
   if (daHome) {
     document.getElementById('istruzioni').classList.add('nascosto');
     document.getElementById('attesa').classList.remove('nascosto');
