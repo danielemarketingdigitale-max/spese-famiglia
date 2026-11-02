@@ -49,7 +49,11 @@
   // Salta all'app solo quando la pagina è aperta dall'icona sulla Home dell'iPhone.
   // In Safari, Chrome o da un link resta qui, così si può aggiungere l'icona.
   var daHome = window.navigator.standalone === true;
-  if (daHome) {
+  // Con "?resta" la pagina non salta mai all'app (per aggiungere l'icona da un telefono che ci finisce sempre).
+  // Poi l'indirizzo torna pulito, così l'icona salvata sulla Home apre l'app come sempre.
+  var resta = /[?&]resta\b/.test(location.search);
+  if (resta) history.replaceState(null, '', location.pathname);
+  if (daHome && !resta) {
     document.getElementById('istruzioni').classList.add('nascosto');
     document.getElementById('attesa').classList.remove('nascosto');
     location.replace(APP);
